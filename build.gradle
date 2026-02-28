@@ -1,0 +1,54 @@
+version = '0.1.0'
+
+configure(subprojects.findAll { it.name != 'test' }) {
+    apply plugin: 'org.graalvm.buildtools.native'
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+
+    group = 'com.prismasaude'
+    version = rootProject.version
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
+    }
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven {
+            name = 'GitHubPackagesCommonCore'
+            url = uri('https://maven.pkg.github.com/Prisma-Saude/common-core')
+            credentials {
+                username = project.findProperty('gpr.user') ?: System.getenv('GPR_USER') ?: System.getenv('GITHUB_ACTOR')
+                password = project.findProperty('gpr.token') ?: System.getenv('GPR_TOKEN') ?: System.getenv('GITHUB_TOKEN')
+            }
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs += ['--enable-preview']
+    }
+
+    test {
+        useJUnitPlatform()
+        jvmArgs '--enable-preview'
+    }
+
+    publishing {
+        repositories {
+            mavenLocal()
+            maven {
+                name = 'GitHubPackages'
+                url = uri('https://maven.pkg.github.com/Prisma-Saude/common-__LIB_NAME__')
+                credentials {
+                    username = project.findProperty('gpr.user') ?: System.getenv('GITHUB_ACTOR')
+                    password = project.findProperty('gpr.token') ?: System.getenv('GITHUB_TOKEN')
+                }
+            }
+        }
+    }
+}

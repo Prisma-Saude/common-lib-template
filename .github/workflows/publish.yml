@@ -1,0 +1,14 @@
+name: Publish
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  publish:
+    uses: Prisma-Saude/common-workflows/.github/workflows/lib-publish.yml@main
+    secrets: inherit

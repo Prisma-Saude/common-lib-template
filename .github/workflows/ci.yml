@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  test:
+    uses: Prisma-Saude/common-workflows/.github/workflows/lib-ci.yml@main
+    with:
+      java-version: '25'
+    secrets: inherit

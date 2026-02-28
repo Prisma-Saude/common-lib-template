@@ -1,0 +1,13 @@
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.42'
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'common-__LIB_NAME__-protocols'
+            from components.java
+        }
+    }
+}
