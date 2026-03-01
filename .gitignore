@@ -4,6 +4,6 @@ build/
 *.iml
 *.iws
 *.ipr
-out/
+/out/
 .DS_Store
 gradle.properties
