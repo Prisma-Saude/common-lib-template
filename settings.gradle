@@ -1,5 +1,5 @@
 plugins {
-    id 'org.graalvm.buildtools.native' version '0.10.6' apply false
+    id 'org.graalvm.buildtools.native' version '0.11.5' apply false
 }
 
 rootProject.name = 'common-__LIB_NAME__'
